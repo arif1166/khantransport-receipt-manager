@@ -9,6 +9,7 @@ export interface Receipt {
   id: string;
   date: string;
   transportedBy: string;
+  transportingPlace: string;
   totalAmount: number;
   expenses: Expense[];
   remaining: number;

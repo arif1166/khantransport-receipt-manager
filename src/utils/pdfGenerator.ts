@@ -14,6 +14,7 @@ export const generatePDF = async (receipt: Receipt): Promise<Blob | null> => {
       
       Date: ${receipt.date}
       Transported By: ${receipt.transportedBy}
+      Transporting Place: ${receipt.transportingPlace}
       
       Total Amount: ₹${formatCurrency(receipt.totalAmount)}
       

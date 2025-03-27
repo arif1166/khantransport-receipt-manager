@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
-import { PlusCircle, Save, ChevronLeft } from "lucide-react";
+import { PlusCircle, Save, ChevronLeft, Route } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -20,6 +20,7 @@ const ReceiptForm = () => {
   const navigate = useNavigate();
   const [date, setDate] = useState<string>(new Date().toISOString().split("T")[0]);
   const [transportedBy, setTransportedBy] = useState<string>("");
+  const [transportingPlace, setTransportingPlace] = useState<string>("");
   const [totalAmount, setTotalAmount] = useState<string>("");
   const [expenses, setExpenses] = useState<Expense[]>([
     { id: uuidv4(), name: "Driver Salary", amount: 0 },
@@ -29,9 +30,26 @@ const ReceiptForm = () => {
   const [newExpenseId, setNewExpenseId] = useState<string | null>(null);
   const [remainingAmount, setRemainingAmount] = useState<number>(0);
 
+  // Format input with thousands separator
+  const formatNumberInput = (value: string): string => {
+    // Remove non-numeric characters
+    const numericValue = value.replace(/[^\d]/g, '');
+    
+    // Format with thousands separator
+    if (numericValue) {
+      return Number(numericValue).toLocaleString('en-IN');
+    }
+    return '';
+  };
+
+  // Parse string with commas to number
+  const parseFormattedNumber = (value: string): number => {
+    return Number(value.replace(/[^\d]/g, '')) || 0;
+  };
+
   // Calculate remaining amount whenever expenses or total amount changes
   useEffect(() => {
-    const total = parseFloat(totalAmount) || 0;
+    const total = parseFormattedNumber(totalAmount);
     const expensesTotal = expenses.reduce((sum, expense) => sum + expense.amount, 0);
     setRemainingAmount(total - expensesTotal);
   }, [expenses, totalAmount]);
@@ -67,7 +85,12 @@ const ReceiptForm = () => {
       return;
     }
     
-    if (!totalAmount || parseFloat(totalAmount) <= 0) {
+    if (!transportingPlace.trim()) {
+      toast.error("Please enter the transporting place");
+      return;
+    }
+    
+    if (!totalAmount || parseFormattedNumber(totalAmount) <= 0) {
       toast.error("Please enter a valid total amount");
       return;
     }
@@ -76,7 +99,8 @@ const ReceiptForm = () => {
       id: uuidv4(),
       date,
       transportedBy,
-      totalAmount: parseFloat(totalAmount),
+      transportingPlace,
+      totalAmount: parseFormattedNumber(totalAmount),
       expenses,
       remaining: remainingAmount,
     };
@@ -124,10 +148,10 @@ const ReceiptForm = () => {
               <Label htmlFor="total-amount">Total Amount</Label>
               <Input
                 id="total-amount"
-                type="number"
+                type="text"
                 value={totalAmount}
-                onChange={(e) => setTotalAmount(e.target.value)}
-                placeholder="0.00"
+                onChange={(e) => setTotalAmount(formatNumberInput(e.target.value))}
+                placeholder="0"
                 className="mt-1"
               />
             </div>
@@ -142,6 +166,20 @@ const ReceiptForm = () => {
               placeholder="Enter name"
               className="mt-1"
             />
+          </div>
+
+          <div>
+            <Label htmlFor="transporting-place">Transporting Place</Label>
+            <div className="relative">
+              <Route className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 w-4 h-4" />
+              <Input
+                id="transporting-place"
+                value={transportingPlace}
+                onChange={(e) => setTransportingPlace(e.target.value)}
+                placeholder="e.g. Gohati to Mumbai"
+                className="mt-1 pl-10"
+              />
+            </div>
           </div>
         </div>
       </Card>

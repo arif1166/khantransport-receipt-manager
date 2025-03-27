@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Receipt, Plus } from "lucide-react";
+import { Receipt, Plus, Route } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
@@ -73,6 +73,12 @@ const Index = () => {
                       <Receipt className="w-5 h-5 text-contransport-600 mr-3" />
                       <div>
                         <p className="font-medium">{receipt.transportedBy}</p>
+                        {receipt.transportingPlace && (
+                          <p className="text-sm text-gray-500 flex items-center">
+                            <Route className="w-3 h-3 mr-1" />
+                            {receipt.transportingPlace}
+                          </p>
+                        )}
                         <p className="text-sm text-gray-500">
                           {format(new Date(receipt.date), "dd MMM yyyy")}
                         </p>

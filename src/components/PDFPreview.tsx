@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { Receipt } from "../types/receipt";
 import { Button } from "@/components/ui/button";
 import { sharePDF } from "@/utils/pdfGenerator";
-import { Share2, Download, Printer } from "lucide-react";
+import { Share2, Download, Printer, Route } from "lucide-react";
 import { format } from "date-fns";
 
 interface PDFPreviewProps {
@@ -43,6 +43,14 @@ const PDFPreview = ({ receipt }: PDFPreviewProps) => {
           <div className="mb-6">
             <div className="text-sm text-gray-600 mb-1">Transported By:</div>
             <div className="font-medium">{receipt.transportedBy}</div>
+          </div>
+
+          <div className="mb-6">
+            <div className="text-sm text-gray-600 mb-1">Transporting Place:</div>
+            <div className="font-medium flex items-center">
+              <Route className="w-4 h-4 mr-1 text-gray-500" />
+              {receipt.transportingPlace}
+            </div>
           </div>
 
           <div className="mb-6">
