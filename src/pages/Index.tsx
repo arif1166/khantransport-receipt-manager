@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Receipt, Plus } from "lucide-react";
@@ -35,7 +34,7 @@ const Index = () => {
     <div className="min-h-screen pb-24 px-4">
       <div className="max-w-md mx-auto pt-12 pb-4">
         <div className="flex flex-col items-center mb-10 animate-slide-down">
-          <h1 className="text-3xl font-bold text-contransport-800 mt-4 mb-2">CONTRANSPORT</h1>
+          <h1 className="text-3xl font-bold text-contransport-800 mt-4 mb-2">KHAN TRANSPORT</h1>
           <p className="text-gray-500 text-center">Receipt Management</p>
         </div>
 

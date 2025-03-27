@@ -93,9 +93,9 @@ const ViewReceipt = () => {
           </Button>
         </div>
         
-        <h1 className="text-2xl font-bold text-center mb-6">Receipt Details</h1>
+        <h1 className="text-2xl font-bold text-center mb-6">Khan Transport Receipt Details</h1>
         
-        <PDFPreview receipt={receipt} />
+        <PDFPreview receipt={receipt!} />
       </div>
       <Navbar />
     </div>

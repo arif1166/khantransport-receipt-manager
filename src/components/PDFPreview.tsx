@@ -28,7 +28,7 @@ const PDFPreview = ({ receipt }: PDFPreviewProps) => {
               {format(new Date(receipt.date), "dd/MM/yyyy")}
             </div>
             <div className="text-center text-xl font-bold text-contransport-800">
-              CONTRANSPORT
+              KHAN TRANSPORT
             </div>
             <div className="text-sm text-gray-600 text-right">
               Receipt #{receipt.id.slice(0, 4)}
@@ -42,7 +42,7 @@ const PDFPreview = ({ receipt }: PDFPreviewProps) => {
 
           <div className="mb-6">
             <div className="text-sm text-gray-600 mb-2">Total Amount:</div>
-            <div className="text-xl font-bold">${receipt.totalAmount.toFixed(2)}</div>
+            <div className="text-xl font-bold">₹{receipt.totalAmount.toFixed(2)}</div>
           </div>
 
           <div className="mb-6">
@@ -51,7 +51,7 @@ const PDFPreview = ({ receipt }: PDFPreviewProps) => {
               {receipt.expenses.map((expense) => (
                 <div key={expense.id} className="flex justify-between">
                   <span>{expense.name}</span>
-                  <span>${expense.amount.toFixed(2)}</span>
+                  <span>₹{expense.amount.toFixed(2)}</span>
                 </div>
               ))}
             </div>
@@ -60,7 +60,7 @@ const PDFPreview = ({ receipt }: PDFPreviewProps) => {
           <div className="pt-4 border-t">
             <div className="flex justify-between font-bold">
               <span>Remaining Amount:</span>
-              <span>${receipt.remaining.toFixed(2)}</span>
+              <span>₹{receipt.remaining.toFixed(2)}</span>
             </div>
           </div>
         </div>

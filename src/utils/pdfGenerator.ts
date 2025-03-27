@@ -1,28 +1,22 @@
-
 import { Receipt } from "../types/receipt";
 import { toast } from "sonner";
 
 export const generatePDF = async (receipt: Receipt): Promise<Blob | null> => {
   try {
-    // This is a client-side only PDF generation mock
-    // In a real app, you'd use a PDF library like pdfmake or jspdf
-    // For this demo, we'll just create a simple representation
-    
     const pdfContent = `
-      CONTRANSPORT RECEIPT
+      KHAN TRANSPORT RECEIPT
       
       Date: ${receipt.date}
       Transported By: ${receipt.transportedBy}
       
-      Total Amount: $${receipt.totalAmount.toFixed(2)}
+      Total Amount: ₹${receipt.totalAmount.toFixed(2)}
       
       EXPENSES:
-      ${receipt.expenses.map(expense => `${expense.name}: $${expense.amount.toFixed(2)}`).join('\n')}
+      ${receipt.expenses.map(expense => `${expense.name}: ₹${expense.amount.toFixed(2)}`).join('\n')}
       
-      Remaining Amount: $${receipt.remaining.toFixed(2)}
+      Remaining Amount: ₹${receipt.remaining.toFixed(2)}
     `;
     
-    // Create a blob from the text content - in a real app this would be a PDF
     const blob = new Blob([pdfContent], { type: "application/pdf" });
     return blob;
   } catch (error) {
