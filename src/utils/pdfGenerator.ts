@@ -1,5 +1,11 @@
+
 import { Receipt } from "../types/receipt";
 import { toast } from "sonner";
+
+// Helper function to format currency
+const formatCurrency = (amount: number) => {
+  return amount.toLocaleString('en-IN') + "/-";
+};
 
 export const generatePDF = async (receipt: Receipt): Promise<Blob | null> => {
   try {
@@ -9,12 +15,12 @@ export const generatePDF = async (receipt: Receipt): Promise<Blob | null> => {
       Date: ${receipt.date}
       Transported By: ${receipt.transportedBy}
       
-      Total Amount: ₹${receipt.totalAmount.toFixed(2)}
+      Total Amount: ₹${formatCurrency(receipt.totalAmount)}
       
       EXPENSES:
-      ${receipt.expenses.map(expense => `${expense.name}: ₹${expense.amount.toFixed(2)}`).join('\n')}
+      ${receipt.expenses.map(expense => `${expense.name}: ₹${formatCurrency(expense.amount)}`).join('\n')}
       
-      Remaining Amount: ₹${receipt.remaining.toFixed(2)}
+      Remaining Amount: ₹${formatCurrency(receipt.remaining)}
     `;
     
     const blob = new Blob([pdfContent], { type: "application/pdf" });

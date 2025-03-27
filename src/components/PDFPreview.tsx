@@ -10,6 +10,11 @@ interface PDFPreviewProps {
   receipt: Receipt;
 }
 
+// Helper function to format currency
+const formatCurrency = (amount: number) => {
+  return amount.toLocaleString('en-IN') + "/-";
+};
+
 const PDFPreview = ({ receipt }: PDFPreviewProps) => {
   const [isPrinting, setIsPrinting] = useState(false);
 
@@ -42,7 +47,7 @@ const PDFPreview = ({ receipt }: PDFPreviewProps) => {
 
           <div className="mb-6">
             <div className="text-sm text-gray-600 mb-2">Total Amount:</div>
-            <div className="text-xl font-bold">₹{receipt.totalAmount.toFixed(2)}</div>
+            <div className="text-xl font-bold">₹{formatCurrency(receipt.totalAmount)}</div>
           </div>
 
           <div className="mb-6">
@@ -51,7 +56,7 @@ const PDFPreview = ({ receipt }: PDFPreviewProps) => {
               {receipt.expenses.map((expense) => (
                 <div key={expense.id} className="flex justify-between">
                   <span>{expense.name}</span>
-                  <span>₹{expense.amount.toFixed(2)}</span>
+                  <span>₹{formatCurrency(expense.amount)}</span>
                 </div>
               ))}
             </div>
@@ -60,7 +65,7 @@ const PDFPreview = ({ receipt }: PDFPreviewProps) => {
           <div className="pt-4 border-t">
             <div className="flex justify-between font-bold">
               <span>Remaining Amount:</span>
-              <span>₹{receipt.remaining.toFixed(2)}</span>
+              <span>₹{formatCurrency(receipt.remaining)}</span>
             </div>
           </div>
         </div>

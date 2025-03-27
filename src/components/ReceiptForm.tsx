@@ -11,6 +11,11 @@ import { toast } from "sonner";
 import ExpenseItem from "./ExpenseItem";
 import { Receipt, Expense } from "../types/receipt";
 
+// Helper function to format currency
+const formatCurrency = (amount: number) => {
+  return amount.toLocaleString('en-IN') + "/-";
+};
+
 const ReceiptForm = () => {
   const navigate = useNavigate();
   const [date, setDate] = useState<string>(new Date().toISOString().split("T")[0]);
@@ -174,7 +179,7 @@ const ReceiptForm = () => {
           <div className="flex justify-between items-center">
             <span className="font-semibold">Remaining Amount:</span>
             <span className={`font-bold text-lg ${remainingAmount < 0 ? 'text-red-500' : 'text-green-600'}`}>
-              ${remainingAmount.toFixed(2)}
+              ₹{formatCurrency(remainingAmount)}
             </span>
           </div>
         </div>

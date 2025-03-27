@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Receipt, Plus } from "lucide-react";
@@ -6,6 +7,11 @@ import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
 import { format } from "date-fns";
 import { Receipt as ReceiptType } from "../types/receipt";
+
+// Helper function to format currency
+const formatCurrency = (amount: number) => {
+  return amount.toLocaleString('en-IN') + "/-";
+};
 
 const Index = () => {
   const navigate = useNavigate();
@@ -73,9 +79,9 @@ const Index = () => {
                       </div>
                     </div>
                     <div className="text-right">
-                      <p className="font-bold">${receipt.totalAmount.toFixed(2)}</p>
+                      <p className="font-bold">₹{formatCurrency(receipt.totalAmount)}</p>
                       <p className={`text-sm ${receipt.remaining < 0 ? 'text-red-500' : 'text-green-600'}`}>
-                        ${receipt.remaining.toFixed(2)}
+                        ₹{formatCurrency(receipt.remaining)}
                       </p>
                     </div>
                   </div>
